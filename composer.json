@@ -1,8 +1,0 @@
-{
-    "name": "inkedus/zero",
-    "description": "BotPro-zero",
-    "require": {
-        "hashids/hashids": "^4.1",
-        "tencentcloud/tencentcloud-sdk-php": "^3.0"
-    }
-}
