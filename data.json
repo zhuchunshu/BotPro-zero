@@ -1,0 +1,27 @@
+{
+    "name" : "娱乐群管插件",
+    "description" : "BotPro-Zero:娱乐群管插件",
+    "class" : [
+        "boot"
+    ],
+    "dirname":"zero",
+    "author" : "Inkedus",
+    "url" : "http://node.tax",
+    "version" : 1,
+    "post_type" : {
+        "message" : {
+            "group" : [
+                "message\\group\\fenfa",
+                "message\\group\\cache"
+            ],
+            "private" : [
+                
+            ]
+        },
+        "notice" : {
+            "group_upload" : [
+                
+            ]
+        }
+    }
+}
