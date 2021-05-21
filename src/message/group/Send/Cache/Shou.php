@@ -31,7 +31,7 @@ class Shou{
     public function 路由追踪(){
         sendMsg([
             'group_id' => $this->data->group_id,
-            'message' => "请在60秒内发送域名或IP"
+            'message' => "请在120秒内发送域名或IP"
         ], "send_group_msg");
     }
 }

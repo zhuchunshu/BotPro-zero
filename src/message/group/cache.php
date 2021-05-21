@@ -52,13 +52,12 @@ class cache implements message{
         if (FacadesCache::get($this->data->group_id . "_" . $this->data->user_id, null)) {
             if (!in_array(FacadesCache::get($this->data->group_id . "_" . $this->data->user_id, null), $this->ban) && method_exists($obj = new Fa($this->data), FacadesCache::get($this->data->group_id . "_" . $this->data->user_id, null))) {
                 $data = FacadesCache::get($this->data->group_id . "_" . $this->data->user_id, null);
-                FacadesCache::forget($this->data->group_id . "_" . $this->data->user_id);
                 (new Fa($this->data))->$data();
             }
         } else {
             if (!in_array($this->order[0], $this->ban) && method_exists($obj = new Shou($this->data), $this->order[0])) {
                 $data = $this->order[0];
-                FacadesCache::add($this->data->group_id . "_" . $this->data->user_id, $this->order[0], 60);
+                FacadesCache::add($this->data->group_id . "_" . $this->data->user_id, $this->order[0], 120);
                 (new Shou($this->data))->$data();
             }
         }

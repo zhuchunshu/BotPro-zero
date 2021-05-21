@@ -3,6 +3,7 @@ namespace App\Plugins\zero\src\message\group;
 
 use App\Plugins\zero\src\interfaces\message;
 use App\Plugins\zero\src\message\group\Send\After;
+use App\Plugins\zero\src\message\group\Send\one as SendOne;
 use App\Plugins\zero\src\message\group\Send\two as SendTwo;
 use App\Plugins\zero\src\Middleware\HasUser;
 use App\Plugins\zero\src\Models\ZeroUsers;
@@ -53,6 +54,14 @@ class fenfa implements message{
         if(@$this->orderCount>=2){
             $arr = [
                 SendTwo::class
+            ];
+            $this->Run($arr);
+        }
+
+        // 单指令
+        if(@$this->orderCount=1){
+            $arr = [
+                SendOne::class
             ];
             $this->Run($arr);
         }

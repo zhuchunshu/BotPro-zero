@@ -26,6 +26,7 @@ class Fa{
             'group_id' => $this->data->group_id,
             'message' => "[CQ:image,file=" . $img . ",type=show,id=40000]"
         ], "send_group_msg");
+        Cache::forget($this->data->group_id . "_" . $this->data->user_id);
     }
     public function 图片链接()
     {
@@ -35,6 +36,7 @@ class Fa{
             'group_id' => $this->data->group_id,
             'message' => "[CQ:image,file=" . $img_url . "]图片链接为:" . $img_url
         ], "send_group_msg");
+        Cache::forget($this->data->group_id . "_" . $this->data->user_id);
     }
     public function 路由追踪()
     {

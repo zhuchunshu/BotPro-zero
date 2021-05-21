@@ -24,4 +24,12 @@ return [
         'parent_id'     => 1,
         'roles'         => 'administrator', // 与角色绑定
     ],
+    [
+        'id'            => 3, // 此id只要保证当前的数组中是唯一的即可
+        'title'         => '功能开关',
+        'icon'          => '',
+        'uri'           => 'zero/switch',
+        'parent_id'     => 1,
+        'roles'         => 'administrator', // 与角色绑定
+    ],
 ];

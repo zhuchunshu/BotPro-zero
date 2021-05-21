@@ -1,6 +1,5 @@
 <?php
 namespace App\Plugins\zero\src\Http\Controllers;
-
 use ZipArchive;
 use Faker\Factory;
 use Dcat\Admin\Form;
@@ -14,10 +13,9 @@ use App\Admin\Repositories\Plugin;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use App\Models\Plugin as ModelsPlugin;
-use App\Plugins\zero\src\Http\Repositories\Option as HttpRepositoriesOption;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-class Setting {
+class SwitchController {
 
     /**
      * Make a grid builder.
@@ -29,18 +27,7 @@ class Setting {
         return new Grid(null, function (Grid $grid) {
             $grid->column('id', '标识')->explode()->label();
             $grid->column('name', '名称')->explode('\\')->label();
-            $grid->column('value', '值');
-            $grid->column('setting', '操作')->display(function($setting){
-                if(get_options_count($setting)){
-                    $id = Option::where('name',$setting)->first()->id;
-                }else{
-                    $id = Option::insertGetId([
-                        "name" => $setting,
-                        "value" => 0
-                    ]);
-                }
-                return "<a href='setting/".$id."'>设置</a>";
-            });
+            $grid->column('status', '开启/关闭')->switch();
             $grid->disableRowSelector();
             //$grid->disableCreateButton();
             $grid->disableActions();
@@ -58,7 +45,7 @@ class Setting {
      */
     public function generate()
     {
-        $data = include plugin_path("zero/src/lib/setting.php");
+        $data = include plugin_path("zero/src/lib/switch.php");
         return $data;
     }
 
@@ -89,9 +76,9 @@ class Setting {
      */
     protected function form()
     {
-        return Form::make(new HttpRepositoriesOption(), function (Form $form) {
-            $form->display('name','标识');
-            $form->text('value','值');
+        return Form::make(new Plugin(), function (Form $form) {
+            $form->file('file', '选择插件')->accept('zip')->removable();
+            $form->disableFooter();
         });
     }
     /**
@@ -99,7 +86,7 @@ class Setting {
      *
      * @var string
      */
-    protected $title="插件设置";
+    protected $title="功能开关";
 
     /**
      * Set description for following 4 action pages.
@@ -202,9 +189,73 @@ class Setting {
      *
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Form $form)
+    public function update($name, Form $form)
     {
-        return $this->form()->update($id);
+        $status = request()->input('status', 0);
+        if (get_options_count($name)) {
+            // 存在
+            Option::where('name', $name)->update([
+                'value' => $status
+            ]);
+            if ($status) {
+                $ev = "启用";
+            } else {
+                $ev = "禁用";
+            }
+        } else {
+            // 不存在
+            Option::insert([
+                'name' => $name,
+                'value' => $status,
+                'created_at' => date("Y-m-d H:i:s")
+            ]);
+            $ev = "禁用";
+        }
+        return [
+            'status' => true,
+            'data' => [
+                'message' => "标识为:" . $name . "的功能" .$ev . '成功!',
+                'type' => 'success'
+            ]
+        ];
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        //$path = $request->file('_file_')->store('file');
+        $file = $request->_file_;
+        $file->move(app_path("Plugins"), $file->getClientOriginalName());
+        $path = app_path("Plugins/" . $file->getClientOriginalName());
+        //实例化ZipArchive类
+        $zip = new ZipArchive();
+        //打开压缩文件，打开成功时返回true
+        if ($zip->open($path) === true) {
+            //解压文件到获得的路径a文件夹下
+            $zip->extractTo(app_path("Plugins/"));
+            //关闭
+            $zip->close();
+            File::delete($path);
+            return Json_Api(true,"插件安装成功!","success");
+        } else {
+            return Json_Api(true,"插件上传失败!","error");
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return $this->form()->destroy($id);
     }
 
 }
