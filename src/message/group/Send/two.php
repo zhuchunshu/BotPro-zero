@@ -2,7 +2,9 @@
 namespace App\Plugins\zero\src\message\group\Send;
 
 use App\Models\BotCore;
+use Illuminate\Support\Str;
 use App\Plugins\zero\src\Api\V1;
+use johnnymast\Morsecode\Morsecode;
 use Illuminate\Support\Facades\Http;
 use App\Plugins\zero\src\message\group\Jobs\pingJob;
 
@@ -286,17 +288,126 @@ class two {
             ], "send_group_msg");
         }
     }
-    public function 备案查询(){
-        $result = V1::Beian($this->order[1]);
-        if(!is_array($result)){
+
+    public function 收录查询(){
+        $result = V1::WebSiteShoulu($this->order[1]);
+        if(is_array($result)){
             sendMsg([
                 'group_id' => $this->data->group_id,
-                'message' => $result
+                'message' => "[CQ:reply,id={$this->data->message_id}]查询域名:{$result['Domain']}
+百度收录:{$result['BaiDu']}
+百度索引:{$result['BaiDuIndex']}
+360收录:{$result['SoCom']}
+搜狗收录:{$result['Sogou']}
+神马收录:{$result['SmCn']}"
             ], "send_group_msg");
         }else{
             sendMsg([
                 'group_id' => $this->data->group_id,
-                'message' => json_encode($result)
+                'message' => "[CQ:reply,id={$this->data->message_id}]".$result
+            ], "send_group_msg");
+        }
+    }
+    public function md5(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".md5($this->order[1])
+        ], "send_group_msg");
+    }
+    public function base64加密(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".base64_encode($this->order[1])
+        ], "send_group_msg");
+    }
+    public function base64解密(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".base64_decode($this->order[1])
+        ], "send_group_msg");
+    }
+    public function 藏头诗(){
+        if (preg_match("/^[\x7f-\xff]+$/", $this->order[1])) {
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Cangtoushi($this->order[1])
+            ], "send_group_msg");
+        }else{
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]藏头诗内容必须为中文"
+            ], "send_group_msg");
+        }
+    }
+    public function 手机号价格评估(){
+        if(is_numeric($this->order[1])){
+            if(Str::length($this->order[1])==11){
+                sendMsg([
+                    'group_id' => $this->data->group_id,
+                    'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Shpujihaojiage($this->order[1])
+                ], "send_group_msg");
+            }else{
+                sendMsg([
+                    'group_id' => $this->data->group_id,
+                    'message' => "[CQ:reply,id={$this->data->message_id}]手机号格式不正确"
+                ], "send_group_msg");
+            }
+        }else{
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]手机号必须是数字"
+            ], "send_group_msg");
+        }
+    }
+    public function 哔哩哔哩av转bv(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Bili_bv($this->order[1])
+        ], "send_group_msg");
+    }
+    public function 哔哩哔哩bv转av(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Bili_aid($this->order[1])
+        ], "send_group_msg");
+    }
+    public function 摩斯电码(){
+        $morse = new Morsecode();
+        if (preg_match("/[\x7f-\xff]/", $this->order[1])) {
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]加密内容不能包含中文"
+            ], "send_group_msg");
+        }else{
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]".$morse->encode($this->order[1])
+            ], "send_group_msg");
+        }
+    }
+    public function 解摩斯电码(){
+        $morse = new Morsecode();
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".$morse->decode($this->order[1])
+        ], "send_group_msg");
+    }
+    public function 备案查询(){
+        $result = V1::chaicp($this->order[1]);
+        if($result){
+            $data = $result[0];
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]域名:{$data['domain']}
+首页:{$data['homeUrl']}
+备案号:{$data['mainLicence']}
+备案主体:{$data['unitName']}
+网站名:{$data['serviceName']}"
+            ], "send_group_msg");
+        }else{
+            sendMsg([
+                'group_id' => $this->data->group_id,
+                'message' => "[CQ:reply,id={$this->data->message_id}]没查出来"
             ], "send_group_msg");
         }
     }

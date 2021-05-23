@@ -106,7 +106,7 @@ class After
                         $content = "共有 ".count($result['data'])." 个疑点
 ";
                         foreach ($result['data'] as $key => $value) {
-                            $c = ($key+1).". ".$value['msg']."可疑内容包含:
+                            $c = ($key+1).". ".$value['msg']."\n可疑内容包含:
 ";
                             if(@count($value['hits'][0]['words'])){
                                 foreach ($value['hits'][0]['words'] as $values) {

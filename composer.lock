@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddc266a1b14b6eac90273fe609bdda69",
+    "content-hash": "b391d3c5bd04c211d2b1f0a7d4712249",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -314,6 +314,56 @@
                 "source": "https://github.com/vinkla/hashids/tree/4.1.0"
             },
             "time": "2020-11-26T19:24:33+00:00"
+        },
+        {
+            "name": "johnnymast/morsecode",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnnymast/morsecode.git",
+                "reference": "0469e89103b8c21e9b318b90f75e3f1e06727007"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnnymast/morsecode/zipball/0469e89103b8c21e9b318b90f75e3f1e06727007",
+                "reference": "0469e89103b8c21e9b318b90f75e3f1e06727007",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.7.17"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "johnnymast\\Morsecode\\": "src/",
+                    "johnnymast\\Morsecode\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johnny Mast",
+                    "email": "mastjohnny@gmail.com"
+                }
+            ],
+            "description": "Encode or decode your morsecode messages with this package",
+            "keywords": [
+                "army",
+                "communication",
+                "decode",
+                "decoder",
+                "encode",
+                "morse",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/johnnymast/morsecode/issues",
+                "source": "https://github.com/johnnymast/morsecode/tree/v1.2.1"
+            },
+            "time": "2019-04-01T17:52:31+00:00"
         },
         {
             "name": "psr/http-client",

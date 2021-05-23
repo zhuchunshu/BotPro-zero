@@ -2,6 +2,7 @@
 namespace App\Plugins\zero\src\message\group\Send;
 
 use App\Models\BotCore;
+use App\Plugins\zero\src\Api\V1;
 
 
 class one {
@@ -93,5 +94,29 @@ class one {
                 'message' => "[CQ:reply,id=" . $this->data->message_id . "]无权限"
             ], "send_group_msg");
         }
+    }
+    public function 渣男语录(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Zhanan()
+        ], "send_group_msg");
+    }
+    public function 绿茶语录(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".V1::Lvcha()
+        ], "send_group_msg");
+    }
+    public function 舔狗语录(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}]".V1::tiangou()
+        ], "send_group_msg");
+    }
+    public function 二次元图片(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => '[CQ:cardimage,file=http://api.vience.cn/api/acgnimg,icon=https://www.codefec.com/uploads/images/icon/c4b0d0e25e021c8acdd4f5d686ce68ea.svg,source=CodeFec]'
+        ], "send_group_msg");
     }
 }
