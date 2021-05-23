@@ -119,4 +119,10 @@ class one {
             'message' => '[CQ:cardimage,file=http://api.vience.cn/api/acgnimg,icon=https://www.codefec.com/uploads/images/icon/c4b0d0e25e021c8acdd4f5d686ce68ea.svg,source=CodeFec]'
         ], "send_group_msg");
     }
+    public function 菜单(){
+        sendMsg([
+            'group_id' => $this->data->group_id,
+            'message' => "[CQ:reply,id={$this->data->message_id}] 来这里看看我会什么吧 https://github.com/zhuchunshu/BotPro-zero/blob/master/README.md"
+        ], "send_group_msg");
+    }
 }
