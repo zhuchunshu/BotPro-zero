@@ -22,6 +22,11 @@
             "group_upload" : [
                 
             ]
+        },
+        "request" : {
+            "friend" : [
+                "message\\event\\request\\friend"
+            ]
         }
     }
 }

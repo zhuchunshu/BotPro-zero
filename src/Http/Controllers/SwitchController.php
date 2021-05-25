@@ -220,31 +220,6 @@ class SwitchController {
         ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return mixed
-     */
-    public function store(Request $request)
-    {
-        //$path = $request->file('_file_')->store('file');
-        $file = $request->_file_;
-        $file->move(app_path("Plugins"), $file->getClientOriginalName());
-        $path = app_path("Plugins/" . $file->getClientOriginalName());
-        //实例化ZipArchive类
-        $zip = new ZipArchive();
-        //打开压缩文件，打开成功时返回true
-        if ($zip->open($path) === true) {
-            //解压文件到获得的路径a文件夹下
-            $zip->extractTo(app_path("Plugins/"));
-            //关闭
-            $zip->close();
-            File::delete($path);
-            return Json_Api(true,"插件安装成功!","success");
-        } else {
-            return Json_Api(true,"插件上传失败!","error");
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
