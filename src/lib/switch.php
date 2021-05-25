@@ -22,18 +22,13 @@ return [
     ],
     [
         "id" => "zero_switch_event_addGroup",
-        "name" => "加群自动审批",
+        "name" => "加群等级自动审批",
         "status" => get_options("zero_switch_event_addGroup")
     ],
     [
         "id" => "zero_switch_event_Group_shouyaoTy",
         "name" => "受邀自动同意",
         "status" => get_options("zero_switch_event_Group_shouyaoTy")
-    ],
-    [
-        "id" => "zero_switch_event_Group_shouyaoJJ",
-        "name" => "受邀自动拒绝",
-        "status" => get_options("zero_switch_event_Group_shouyaoJJ")
     ],
     [
         "id" => "zero_switch_event_GroupAdmin_notice",
@@ -44,10 +39,5 @@ return [
         "id" => "zero_switch_event_GroupUser_Snotice",
         "name" => "群成员减少通知",
         "status" => get_options("zero_switch_event_GroupUser_Snotice")
-    ],
-    [
-        "id" => "zero_switch_event_GroupUser_Add_notice",
-        "name" => "群成员增加通知",
-        "status" => get_options("zero_switch_event_GroupUser_Add_notice")
-    ],
+    ]
 ];

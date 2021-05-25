@@ -29,5 +29,11 @@ return [
         "name" => "百度内容审核SecretKey",
         "setting" => "百度内容审核SecretKey",
         'value' => zero_setting_value("百度内容审核SecretKey"),
+    ],
+    [
+        "id" => "加群等级审批",
+        "name" => "qq等级大于等于几? 加群自动通过。",
+        "setting" => "加群等级审批",
+        'value' => zero_setting_value("加群等级审批"),
     ]
 ];

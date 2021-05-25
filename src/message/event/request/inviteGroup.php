@@ -2,9 +2,9 @@
 namespace App\Plugins\zero\src\message\event\request;
 
 /**
- * 加好友自动审批
+ * 受邀自动同意
  */
-class friend {
+class inviteGroup {
 
      /**
      * 接收到的数据
@@ -34,17 +34,13 @@ class friend {
     }
 
     public function boot(){
-        if(get_options("zero_switch_event_friend_nopass")){
-            sendMsg([
-                "flag" => $this->data->flag,
-                "approve" => false
-            ],"set_friend_add_request");
-        }else{
-            if(get_options("zero_switch_event_friend")){
+        if(get_options("zero_switch_event_Group_shouyaoTy")){
+            if($this->data->sub_type=="invite"){
                 sendMsg([
                     "flag" => $this->data->flag,
-                    "approve" => true
-                ],"set_friend_add_request");
+                    "sub_type" => $this->data->sub_type,
+                    "approve" => true,
+                ],"set_group_add_request");
             }
         }
     }

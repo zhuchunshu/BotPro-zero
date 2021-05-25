@@ -19,13 +19,20 @@
             ]
         },
         "notice" : {
-            "group_upload" : [
-                
+            "group_admin" : [
+                "message\\event\\notice\\group_admin"
+            ],
+            "group_decrease" : [
+                "message\\event\\notice\\group_decrease"
             ]
         },
         "request" : {
             "friend" : [
                 "message\\event\\request\\friend"
+            ],
+            "group" :[
+                "message\\event\\request\\group",
+                "message\\event\\request\\inviteGroup"
             ]
         }
     }
